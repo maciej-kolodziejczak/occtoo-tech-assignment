@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import s from "./InfiniteScroll.module.scss";
-
 import { throttle } from "../lib/throttle";
+
+import s from "./InfiniteScroll.module.scss";
 
 type Props<T> = {
   fetchUrl: string;
@@ -29,7 +29,7 @@ export function InfiniteScroll({
         setData((data) => [...data, ...d.results]);
         setIsLoading(false);
       });
-  }, [page]);
+  }, [page, fetchUrl]);
 
   useEffect(() => {
     if (!scrollArea.current) {
