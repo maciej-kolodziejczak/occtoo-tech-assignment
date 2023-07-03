@@ -15,6 +15,7 @@ Problems with the implementation (and potential solutions):
 - As many APIs might differ in terms of the response object, current solution only works with the chosen API (and anything that would fit the data structure of its response). As there were no requirements on what type of pagination to support, I decided to go with the above, however, to solve that issue a data transforming function could be added as a prop, or data could be transformed outside the component and passed as is (which would also extract the data fetching outside the component).
 - Current implementation does everything in a single component which I'm not really a fan of; I'd consider splitting that into hooks and possibly smaller components for handling each task (data fetching, triggering callbacks on scroll etc.) separately.
 - The component works one way only: it fetches the data when scrolled to the bottom as per requirements, however this is a certain performance bottleneck while being used with APIs that holds a lot of data. I'd advice to implement a state management system for the component (using context and `useReducer` hook for example) to be able to only render a portion of the fetched data within the component, traversing the data back when scrolled to the top.
+- There is no error handling of any kind; the control of the data flow is not much versatile as well.
 - There are no tests. :(
 - Styling is kind of lackluster.
 
