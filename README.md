@@ -1,6 +1,22 @@
-# Getting Started with Create React App
+nt # Occtoo Technical Assignment
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Solution related notes
+
+The current solution is a simplified version of the general idea for the infinite loader.
+
+What it currently does:
+- fetches the data based on the url prop (which should fetch an object with the `results` key in the response, more on that later)
+- allows the formatting of the data entries via `render` prop
+- allows the configuration of the scroll threshold to fire the data fetching before user scrolls to the bottom
+
+Problems with the implementation (and potential solutions):
+- As many APIs might differ in terms of the response object, current solution only works with the chosen API (and anything that would fit the data structure of its response). As there were no requirements on what type of pagination to support, I decided to go with the above, however, to solve that issue a data transforming function could be added as a prop, or data could be transformed outside the component and passed as is (which would also extract the data fetching outside the component).
+- Current implementation does everything in a single component which I'm not really a fan of; I'd consider splitting that into hooks and possibly smaller components for handling each task (data fetching, triggering callbacks on scroll etc.) separately.
+- The component works one way only: it fetches the data when scrolled to the bottom as per requirements, however this is a certain performance bottleneck while being used with APIs that holds a lot of data. I'd advice to implement a state management system for the component (using context and `useReducer` hook for example) to be able to only render a portion of the fetched data within the component, traversing the data back when scrolled to the top.
+- There are no tests. :(
+- Styling is kind of lackluster.
 
 ## Available Scripts
 
@@ -28,19 +44,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
